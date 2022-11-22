@@ -79,3 +79,9 @@ async def refresh(response: Response,
                                  refresh_token=new_refresh_token, 
                                  expires_in=config.JWT_AT_LIFETIME.seconds,
                                  role=access_token.role)
+
+
+@router.get('/user')
+async def user(access_token: utils.JWTToken = Depends(backends.jwt_auth)):
+    return {'user_id': access_token.user, 'is_superuser': access_token.is_superuser}
+
